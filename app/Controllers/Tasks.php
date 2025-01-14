@@ -101,7 +101,31 @@ class Tasks extends ResourceController
      */
     public function update($id = null)
     {
-        //
+        $model = new Task();
+        $data = $model->find($id);
+        if (empty($data)) {
+            return $this->failNotFound('Item not found');
+        } else {
+            $rules = [
+                'name' => 'required',
+                'desc' => 'required'
+            ];
+
+            if (!$this->validate($rules)) {
+                return $this->fail($this->validator->getErrors());
+            } else {
+                $data = [
+                    'name' => $this->request->getVar('name'),
+                    'desc' => $this->request->getVar('desc')
+                ];
+
+                $model = new Task();
+                $model->update($id, $data);
+
+                return $this->respondCreated($data);
+
+            }
+        }
     }
 
     /**
@@ -113,6 +137,12 @@ class Tasks extends ResourceController
      */
     public function delete($id = null)
     {
-        //
+        $model = new Task();
+        $data = $model->find($id);
+        if (empty($data)) {
+            return $this->failNotFound('Item not found');
+        } else {
+            $model->delete($id);
+        }
     }
 }
