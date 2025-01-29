@@ -14,3 +14,5 @@ $routes->get('/', 'Home::index');
 // $routes->post('/delete/(:num)','Tasks::delete/$1');
 
 $routes->resource('tasks');
+
+$routes->resource('caleventsforwebsite');
