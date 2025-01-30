@@ -36,6 +36,7 @@ class CalEventsForWebsite extends BaseController
 
         $start_date = $this->request->getVar('start_date');
         $end_date = $this->request->getVar('end_date');
+        $time_zone = $this->request->getVar('time_zone');
 
         $error_msg = [];
         $error_msg['reason'] = '';
@@ -47,6 +48,7 @@ class CalEventsForWebsite extends BaseController
         $search_data = [
             'start_date' => $start_date,
             'end_date' => $end_date,
+            'time_zone' => $time_zone
         ];
 
         $events = $this->model->getevents($search_data);
