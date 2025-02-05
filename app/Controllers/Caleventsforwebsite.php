@@ -53,7 +53,10 @@ class CalEventsForWebsite extends BaseController
 
         $events = $this->model->getevents($search_data);
         if (!empty($events)) {
-            $response = array('success' => true, 'events' => $events, "status" => 200);
+
+            $group_events = $this->group_by("calendar_id", $events);
+
+            $response = array('success' => true, 'events' => $group_events, "status" => 200);
             // echo json_encode($response);
             return $this->respond($response);
         } else {
@@ -68,4 +71,25 @@ class CalEventsForWebsite extends BaseController
         }
     }
 
+
+    /**
+     * Function that groups an array of associative arrays by some key.
+     * 
+     * @param {String} $key Property to sort by.
+     * @param {Array} $data Array that stores multiple associative arrays.
+     */
+    function group_by($key, $data)
+    {
+        $result = array();
+
+        foreach ($data as $val) {
+            if (array_key_exists($key, $val)) {
+                $result[$val[$key]][] = $val;
+            } else {
+                $result[""][] = $val;
+            }
+        }
+
+        return $result;
+    }
 }
