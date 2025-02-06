@@ -44,7 +44,7 @@ class CalEventForWebsite extends Model
 
         $query = $this->db->query("SELECT cm.calendar_id,cm.xwr_calname ,cm.xwr_timezone,
 ce.calendar_event_id,ce.calendar_id,ce.summary,ce.description,ce.organiser,ce.
-dt_start,ce.dt_end,ce.city,ce.location,ce.status from calendar_event ce
+dt_start,ce.dt_end,ce.city,ce.location from calendar_event ce
 inner join calendar_master cm
 on ce.calendar_id = cm.calendar_id 
  where $where");
